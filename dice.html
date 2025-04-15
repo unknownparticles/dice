@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>掷骰子</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        
+        .container {
+            text-align: center;
+        }
+        
+        .dice {
+            width: 150px;
+            height: 150px;
+            background-color: #fff;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .dice:hover {
+            transform: scale(1.05);
+        }
+        
+        .dice-value {
+            font-size: 60px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        button {
+            padding: 12px 24px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        @media (max-width: 480px) {
+            .dice {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .dice-value {
+                font-size: 40px;
+            }
+            
+            button {
+                padding: 10px 20px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>掷骰子</h1>
+        <div class="dice">
+            <div class="dice-value" id="diceValue">?</div>
+        </div>
+        <button id="rollButton">掷骰子</button>
+    </div>
+
+    <script>
+        // 获取 DOM 元素
+        const diceValue = document.getElementById('diceValue');
+        const rollButton = document.getElementById('rollButton');
+        const dice = document.querySelector('.dice');
+        
+        // 掷骰子函数
+        function rollDice() {
+            // 随机生成 1 到 6 的数字
+            const randomNumber = Math.floor(Math.random() * 6) + 1;
+            
+            // 添加骰子滚动动画
+            dice.style.animation = 'none';
+            setTimeout(() => {
+                dice.style.animation = 'roll 0.5s ease-in-out';
+            }, 10);
+            
+            // 显示结果
+            setTimeout(() => {
+                diceValue.textContent = randomNumber;
+            }, 500);
+        }
+        
+        // 添加按钮点击事件
+        rollButton.addEventListener('click', rollDice);
+        
+        // 添加 CSS 动画
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes roll {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
